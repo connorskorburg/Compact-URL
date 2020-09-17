@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compact URL</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div id="url_content">{{ session.url_content|tojson }}</div>
+  {% with error = get_flashed_messages(category_filter = ["error"]) %}
+    {% if error %}
+        {% for err in error %}
+            <p class="error">{{ err }}</p>
+        {% endfor %}
+    {% endif %}
+  {% endwith %}
+  
+  <div class="container py-3">
+
+    <h1 class="text-center">Compact URL</h1>
+    <form action="/url" method="post">
+      <div class="form-group">
+        <label class="font-weight-bold" for="url">Enter URL</label>
+        <small class="d-block">*URL must contain https://</small>
+        <input type="url" name="url" id="url" class="form-control" placeholder="https://google.com/cats">
+      </div>
+      <button type="submit" class="btn btn-block btn-primary mb-3">Compact Me!</button>
+    </form>
+
+    <!-- <div>
+      <a href="https://{{session.url}}" class="my-4 d-inline-block" target='_blank'>{{ session.url }}</a>
+    </div> -->
+
+
+    <div id="content">
+
+
+    </div>
+
+  </div>
+  <script src="{{ url_for('static', filename='/js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='/js/error.js') }}"></script>
+  <script src="{{ url_for('static', filename='/js/remove.js') }}"></script>
+</body>
+</html>
